@@ -1,0 +1,48 @@
+
+ul {
+	list-style: none;
+}
+
+ul#menuLateral {
+	border: 1px solid silver;
+	margin: 0px;
+}
+
+ul#menuLateral li {
+	color: black;
+	line-height: 19px;
+	background: #F4F4F4;
+}
+
+ul#menuLateral li.header {
+	background: #DFDFDF;
+	font-weight: bolder;
+	padding: 0px 3px;
+	font-size: 12px;
+}
+
+ul#menuLateral li a {
+	color: #333;
+	text-decoration: none;
+	display: block;
+	padding: 5px 5px;
+	font-weight: bold;
+
+}
+
+
+
+
+ul#menuLateral li:hover {
+	background-color: #EAEEFF;
+}
+
+ul#menuLateral li ul.sub-menu {
+  	display: none;
+}
+
+ul#menuLateral li ul.sub-menu li a {
+	padding-left: 15px;
+	color: maroon;
+	border-bottom: 1px solid #ccc;
+}

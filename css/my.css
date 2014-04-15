@@ -1,0 +1,38 @@
+#corpo{
+    
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 600px;
+}
+
+.ola{
+    
+    float: right;
+    margin-right: 62px;
+    
+}
+
+.img-circle {
+-webkit-border-radius: 500px;
+-moz-border-radius: 500px;
+border-radius: 500px;
+}
+
+
+
+.data{
+	
+	margin: 12px;
+	float:right;
+	
+}
+
+
+/*
+#sideMenu{
+	
+	background-color: red;
+	float: left;
+	margin-left: 60px;
+}
+*/
