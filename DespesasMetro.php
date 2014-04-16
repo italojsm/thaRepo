@@ -70,6 +70,7 @@ jQuery(function($){
     }
 
     function save(e) {
+       // alert('Alohaaa');
         var tags = multiTags.find("input.tag").map(function() {
             return $(this).val();
         }).get().join(',');
@@ -81,6 +82,7 @@ jQuery(function($){
     
     
     //envio do formulario
+    
      $("form").submit(function(){
     
     
@@ -95,7 +97,7 @@ jQuery(function($){
          //$(window).redirect('controle/InsereHora.php', {dados: dados});
          
          alert('alohaa');
-        
+        /*
             $.ajax({
                  url: "controle/InsereHora.php",
                  data: dados, 
@@ -108,10 +110,9 @@ jQuery(function($){
                             });
                  }
             });
-         
-        
-            
-    return false;
+         */
+                   
+   // return false;
     });
 });
 
@@ -123,7 +124,7 @@ jQuery(function($){
 
     <div class="container">
     
-    <form id="multi" method="POST" action="controle/InsereHora.php">
+        <form id="multi" method="POST" action="controle/InsereDespesa.php">
         <table class="table bordered striped hovered">
         <thead>
             
@@ -145,7 +146,7 @@ jQuery(function($){
                 <input class="tag" type="text" name="data[]" type="text" />
             </td>
             <td>
-                <select class="tag" name="Despesa[]">
+                <select class="tag" name="descricao[]">
                     <option> ALMOCO / LANCHES (EM VIAGENS) </option>
                     <option> REFEICOES DE NEGOCIOS </option>
                     <option> HOTEL / ACOMODACOES  / LAVANDERIAS </option>
@@ -192,7 +193,7 @@ jQuery(function($){
         </tbody>
         
         </table>
-       <!-- <input type="submit" value="save" /> -->
+        <input type="submit" value="save" /> 
         
     </form>
 
@@ -201,6 +202,7 @@ jQuery(function($){
 
 
 <!--
+
 
  <form id="multi">
         <div>
@@ -214,6 +216,7 @@ jQuery(function($){
 
 
 -->
+
 
 </body>
 </hmtl>
