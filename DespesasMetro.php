@@ -24,6 +24,7 @@
     <!--<link href="../metro/css/myStyle.css" rel="stylesheet">-->
     <link href="metro/js/prettify/prettify.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery.treegrid.css">
+   <link rel="stylesheet" type="text/css" href="css/datepickr.css" /> 
    <!-- <link href="css/bootstrap3.css" rel="stylesheet">-->
 
     <!-- Load JavaScript Libraries -->
@@ -31,7 +32,9 @@
     <script src="metro/js/jquery/jquery.widget.min.js"></script>
     <script src="metro/js/jquery/jquery.mousewheel.js"></script>
     <script src="metro/js/prettify/prettify.js"></script>
-    <script src="metro/js/metro.min.js"></script>
+    <script src="metro/js/metro.min.js"></script>    
+    <!--<script src="metro/js/metro/metro-calendar.js"></script>-->
+    <!--<script src="metro/js/metro/metro-datepicker.js"></script>-->
     <script type="text/javascript" src="js/jquery.treegrid.js"></script>
 
     <!-- Metro UI CSS JavaScript plugins -->
@@ -44,10 +47,14 @@
     <script src="js/jquery-1.7.2.min.js"></script> 
     <script src="js/dateFormat.js"></script>
     <script src="js/jquery.redirect.min.js"></script>
-
+      
+    
+    
 <script>
 
 jQuery(function($){
+    
+    
     
     var vIdCliente;
 
@@ -118,10 +125,11 @@ jQuery(function($){
 
 </script>
 
+
 </head>
 
 <body class="metro">
-
+           
     <div class="container">
     
         <form id="multi" method="POST" action="controle/InsereDespesa.php">
@@ -143,7 +151,10 @@ jQuery(function($){
         
         <tr>            
             <td>
-                <input class="tag" type="text" name="data[]" type="text" />
+           <div class="input-control text" >
+               <input type="text" id="datepicker" name="data[]">
+             </div>
+                
             </td>
             <td>
                 <select class="tag" name="descricao[]">
@@ -155,8 +166,8 @@ jQuery(function($){
                     <option> TAXI </option>
                 </select>
             </td>
-            <td class="entrada">
-                <input class="tag" type="text" name="valor[]" />
+            <td>
+                <input class="tag valor" type="text" name="valor[]" />
             </td>
             <td>
                 <select class="tag" id="cliente" name="id_cliente[]">
@@ -217,6 +228,20 @@ jQuery(function($){
 
 -->
 
+<script type="text/javascript" src="js/datepickr.min.js"></script>
+<script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
+		<script type="text/javascript">
+			new datepickr('datepicker', {
+				'dateFormat': 'd/m/Y'
+			});
+                        
+                       $(function(){
+                         
+                            $('.valor').mask('#.##0,00', {reverse: true, maxlength: false});
+                            
+                        });
+                        
+		</script>
 </body>
 </hmtl>
