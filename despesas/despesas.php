@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        
-  
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Falqontrol</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +24,21 @@
     <!-- Local JavaScript -->
     <script src="../metro/js/docs.js"></script>
     <script src="../metro/js/github.info.js"></script>
+    
+    <?php
+    
+        $teste = "1";
+    
+    ?>
+    
+    
+    <script>
+        var VARS_AMBIENTE = new Array();
         
+        VARS_AMBIENTE['teste'] = "<?php echo $teste; ?>";
+        
+    </script>
+    
     </head>
  
     <body class="metro">
@@ -54,6 +66,7 @@
 <div id="indicator" style="display: none; text-align: center;" class="loading_img">
     <img src="http://www.caruaru360graus.com.br/portal/lofslidernews/load.gif"/>
 </div>
+            <!--conteudo-->
             <div id="content"></div>
             
             <div id="delete_confirm_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -72,6 +85,6 @@
 </div>
                  </div>
  
-        <script src="../js/custom.js"></script>
+        <script src="../js/view/despesasView.js"></script>
     </body>
 </html>

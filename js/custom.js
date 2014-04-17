@@ -1,8 +1,8 @@
 $(function() {
     
     $(document).on("click", "#user_list", function(){ getUserList(this); });
-    $(document).on("click", "#create_user_form", function(){ getCreateForm(this); });
-    $(document).on("click", "button#add_user", function(){ addUser(this); });
+   // $(document).on("click", "#create_user_form", function(){ getCreateForm(this); });
+   // $(document).on("click", "button#add_user", function(){ addUser(this); });
     
 });
 
@@ -11,15 +11,14 @@ $(function() {
 function getUserList(element) {
  
     $('#indicator').show();
- 
     $.post('../controle/controller.php',
         {
             action: 'get_users'
         },
         function(data, textStatus) {
-        renderUserList(data);
+            
+        renderUserList(data);        
         $('#indicator').hide();
-        //alert('alohaaa');
         },
         "json"
     );

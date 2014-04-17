@@ -81,7 +81,7 @@ jQuery(function($){
         var tags = multiTags.find("input.tag").map(function() {
             return $(this).val();
         }).get().join(',');
-        alert(tags);
+        //alert(tags);
         //return false;
     }
 
@@ -97,13 +97,13 @@ jQuery(function($){
     
         //alert($('#nomeFantasia').attr('name'));
         
-        var dados = $( this ).serialize();
+       // var dados = $( this ).serialize();
         
-        alert(dados);
+       // alert(dados);
         
          //$(window).redirect('controle/InsereHora.php', {dados: dados});
          
-         alert('alohaa');
+         //alert('alohaa');
         /*
             $.ajax({
                  url: "controle/InsereHora.php",
@@ -132,7 +132,7 @@ jQuery(function($){
            
     <div class="container">
     
-        <form id="multi" method="POST" action="controle/InsereDespesa.php">
+        <form id="multi" method="POST" action=""> <!--controle/InsereDespesa.php-->
         <table class="table bordered striped hovered">
         <thead>
             
@@ -204,7 +204,7 @@ jQuery(function($){
         </tbody>
         
         </table>
-        <input type="submit" value="save" /> 
+        <input type="submit" class="enviar" value="save" /> 
         
     </form>
 
@@ -228,6 +228,7 @@ jQuery(function($){
 
 -->
 
+<script src="js/view/despesasView.js"></script>
 <script type="text/javascript" src="js/datepickr.min.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
