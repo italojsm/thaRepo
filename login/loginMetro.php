@@ -20,6 +20,7 @@
     <script src="../metro/js/jquery/jquery.widget.min.js"></script>
     <script src="../metro/js/jquery/jquery.mousewheel.js"></script>
     <script src="../metro/js/prettify/prettify.js"></script>
+    <script src="../metro/js/metro/metro-input-control.js"></script> 
 
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="../metro/js/load-metro.js"></script>
@@ -41,38 +42,46 @@ $(document).ready(function(){
 </head>
 <body class="metro">
 
+    <div class="container">
+    
+        <!--
     <div id="corpo">
      <div class="grid">
         <div class="row">
-    
-            <div class="span9 offset4">
+    -->
+            <div class="span9 offset2">
                 <div class="example">
                     	<section id="content">
-                    		<form action="" method="POST">
-                                <legend>Falqontrol</legend>    
-                                
-                                <label>Usuario</label>
-                                <div class="input-control text">
-                                    <input type="text" value="" placeholder="Digita seu usuario aqui!!"/>
-                                    <button class="btn-clear"></button>
-                                </div>
-                                <label>Senha</label>
-                                <div class="input-control password">
-                                    <input type="password" value="" placeholder="E sua senha aqui! xD"/>
-                                    <button class="btn-reveal"></button>
-                                </div>
-                            
-                            <input type="submit" value="Logar">
-                            <a href="#">Esqueceu a senha foi?</a>
-                    		</form><!-- form -->
+                    		
+                                <form method="POST" action="valida.php">
+                                    <legend>Falqontrol</legend>    
+
+                                    <label>Usuario</label>
+                                    <div class="input-control text">
+                                        <input type="text" value="" placeholder="Digita seu usuario aqui!!" name="usuario"/>
+                                        <button class="btn-clear"></button>
+                                    </div>
+                                    <label>Senha</label>
+                                    <div class="input-control password">
+                                        <input type="password" value="" placeholder="E sua senha aqui! xD" name="senha"/>
+                                        <button class="btn-reveal"></button>
+                                    </div>
+
+                                    <input type="submit" value="Logar"/>
+                                    <input type="reset" value="teee"/>
+                                <a href="#">Esqueceu a senha foi?</a>
+                    	       </form><!-- form -->
                     	</section><!-- content -->
                 </div><!-- container -->
+          
             </div><!--span9-->
+            <!--
         </div>    
      </div>
         
-    </div><!--corpo-->
-
+    </div>--><!--corpo-->
+            
+</div>
 
 </body>
 </html>

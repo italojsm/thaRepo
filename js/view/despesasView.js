@@ -58,7 +58,7 @@ function renderDespesasList(jsonData) {
 		table += '<td class="edit" field="mobile" despesa_id="'+despesa.id_despesa+'">'+despesa.valor+'</td>';
 		table += '<td class="edit" field="address" despesa_id="'+despesa.id_despesa+'">'+despesa.id_cliente+'</td>';
                 table += '<td class="edit" field="address" despesa_id="'+despesa.id_despesa+'">'+despesa.id_projeto+'</td>';
-		table += '<td><a class="aprova" rel="N" href="javascript:void(0);" despesa_id="'+despesa.id_despesa+'" class="delete_confirm btn btn-danger"><i class="icon-remove icon-white"></i></a> <a class="aprova" rel="S" href="javascript:void(0);" despesa_id="'+despesa.id_despesa+'" class="delete_confirm btn btn-danger"><i class="icon-checkmark icon-white"></i></a></td>';
+		table += '<td><a class="aprova" rel="N" href="javascript:void(0);" despesa_id="'+despesa.id_despesa+'" func_id="'+despesa.id_funcionario+'" class="delete_confirm btn btn-danger"><i class="icon-remove icon-white"></i></a> <a class="aprova" rel="S" href="javascript:void(0);" despesa_id="'+despesa.id_despesa+'" func_id="'+despesa.id_funcionario+'" class="delete_confirm btn btn-danger"><i class="icon-checkmark icon-white"></i></a></td>';
 		table += '</tr>';
     });
 	
@@ -74,9 +74,12 @@ function removeEditable(element) {
 	
 	var Despesa = new Object();
 	Despesa.id = $(element).attr('despesa_id');        
+        Despesa.func_id = $(element).attr('func_id');
         Despesa.newvalue = $(element).attr('rel');
 	
 	var despesaJson = JSON.stringify(Despesa);
+        
+       // alert(despesaJson);
 	
 	$.post('../controle/controller/despesasControl.php',
 		{

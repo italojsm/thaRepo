@@ -7,6 +7,10 @@
 <meta charset="utf-8">
 <title>Inicial Admin Falqontrol</title>
 
+<?php
+    include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
+    protegePagina(); // Chama a função que protege a página
+?>
 
     <link href="metro/css/metro-bootstrap.css" rel="stylesheet">
     <link href="metro/css/metro-bootstrap-responsive.css" rel="stylesheet">
@@ -58,30 +62,32 @@ $(document).ready(function(){
                     <img src="images/Battlefield_4_Icon.png" class="no-display">
                 </div>
                 <div class="user-id-name">
-                    <span class="first-name">Derp</span>
-                    <span class="last-name">Meme</span>
+                    <span class="first-name"><?php echo $_SESSION['usuarioNome'];?></span>
+                    <span class="last-name"><?php echo $_SESSION['usuarioSobreNome'];?></span> 
+                    <span><a href="login/logout.php"> Logout </a></span> 
+                    
                 </div>
                 
         </div><!--user-id-->
 
 
-
+        <div class="container">
 
       <!--tiles grupo 1-->
-        <div class="tile-group offset3">
+        <div class="tile-group offset2">
         
-            <a class="tile triple double-vertical bg-darkEmerald live" data-role="live-tile" data-effect="slideUp" data-click="transform">
-              <div class="tile-content email">
-                    <div class="email-image">
-                        <img src="images/obama.jpg">
-                    </div>
+              <!--tile Dashboard-->   
+              <a href="ClienteMetro.php" class="tile triple double-vertical bg-darkEmerald live" data-role="live-tile" data-effect="slideUp" data-click="transform">
+              <div class="tile-content email " style="background: url(http://www.artistsvalley.com/images/icons/Database%20Application%20Icons/Grant%20Reports%20Column%20Chart/256x256/Grant%20Reports%20Column%20Chart.jpg)">
                     <div class="email-data">
-                        <span class="email-data-title">Barak Obama</span>
-                        <span class="email-data-subtitle">You're invited</span>
-                        <span class="email-data-text">I hope that you can make and make</span>
+                        <span class="email-data-title fg-violet">Clientes</span>
+                        <span class="email-data-subtitle fg-violet">You're invited</span>
+                        <span class="email-data-text fg-violet">I hope that you can make and make</span>
                     </div>
                 </div>
             </a> <!-- end tile -->
+            
+             <!--tile clientes-->
             <a class="tile triple double-vertical bg-darkEmerald live" data-role="live-tile" data-effect="slideUp" data-click="transform">
               <div class="tile-content email">
                     <div class="email-image">
@@ -99,7 +105,8 @@ $(document).ready(function(){
         
         
         <!--tiles grupo 2-->
-        <div class="tile-group offset3">
+        <div class="tile-group offset2">
+             <!--tile contratos-->
             <a class="tile triple double-vertical bg-darkEmerald live" data-role="live-tile" data-effect="slideUp" data-click="transform">
               <div class="tile-content email">
                     <div class="email-image">
@@ -160,9 +167,9 @@ $(document).ready(function(){
          </div><!--tiles grupo 2-->
         
         
-        </div><!--tile main-->
+        </div>
         
-
+    </div><!--tile main-->
 
 </body>
 </html>
