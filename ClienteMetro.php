@@ -43,7 +43,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
         
         $(document).ready(function(){
 	
-		$('#form').hide();
+		$('#formAtt').hide();
                 $('#formInsert').hide();
                 
                 //INSERIR CLIENTE
@@ -120,9 +120,9 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                        
                        var txt = $(this).attr('rel');
                        
-                       alert(txt);
+                       //alert(txt);
                        
-                        $("#form").lightbox_me({                            
+                        $("#formAtt").lightbox_me({                            
                             closeClick: false,
                             onLoad: function(){
                                 
@@ -132,15 +132,87 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                             action: 'getCliente',			
                                             id: txt
                                     },
-                                    function(data, textStatus){                          
+                                    function(data, textStatus){           
                                         $("#form").find('input[name="nome_cliente"]').val(data[0].nome_cliente);
                                         $("#form").find('input[name="cnpj"]').val(data[0].cnpj);
                                         $("#form").find('input[name="razao_social"]').val(data[0].razao_social);
                                         $("#form").find('input[name="nome_fantasia"]').val(data[0].nome_fantasia);
                                         $("#form").find('input[name="nome_repr_legal"]').val(data[0].nome_repr_legal);
+                                        $("#form").find('select[name="id_resp_cliente"] option').filter(function(){
+                                            
+                                            //alert(this).text();
+                                            //return $(this).text() ==  data[0].id_resp_cliente;
+                                           return $(this).val() ==  data[0].id_resp_cliente;
+                                            
+                                        }).prop('selected', true);
                                         $("#form").find('input[name="nome_cont_financeiro"]').val(data[0].nome_cont_financeiro);
                                         $("#form").find('input[name="tel_cont_financeiro"]').val(data[0].tel_cont_financeiro);
-                                        $("#form").find('input[name="email_boleto"]').val(data[0].email_boleto);                                       
+                                        $("#form").find('input[name="email_boleto"]').val(data[0].email_boleto);     
+                                        
+
+                                                                       //Atualiza Cliente
+                                        $("#form").submit(function(e){
+
+                                            //alert('alohaaa');
+                                            var Cliente = new Object();
+
+                                            //AQUI ESTA DANDO UMA TRETA PORQUE ESTA PEGANDO O PRIMEIRO A.EDIT E NAO O A.EDIT CLICADO.. VERIFICAR SAPORRA
+                                            //var txt = $('a.edit').attr('rel');
+                                            
+                                             Cliente.id =                   txt;
+                                             Cliente.nome_cliente =         $(this).find('input[name="nome_cliente"]').val();
+                                             Cliente.cnpj =                 $(this).find('input[name="cnpj"]').val();
+                                             Cliente.razao_social =         $(this).find('input[name="razao_social"]').val();
+                                             Cliente.nome_fantasia =        $(this).find('input[name="nome_fantasia"]').val();
+                                             Cliente.nome_repr_legal =      $(this).find('input[name="nome_repr_legal"]').val();
+                                             Cliente.id_resp_cliente =      $(this).find('select[name="id_resp_cliente"]').val();
+                                             Cliente.nome_cont_financeiro = $(this).find('input[name="nome_cont_financeiro"]').val();
+                                             Cliente.tel_cont_financeiro =  $(this).find('input[name="tel_cont_financeiro"]').val();
+                                             Cliente.email_boleto =         $(this).find('input[name="email_boleto"]').val();     
+
+                                            var clienteJson = JSON.stringify(Cliente);
+
+                                           // alert(clienteJson);
+
+                                           // return false;
+                                            $.post('controle/requests.php',
+                                                {
+                                                        action: 'atualizaCliente',			
+                                                        clien: clienteJson
+                                                },
+                                                function(data, textStatus) {
+
+
+                                                    $("#form").trigger('close');
+
+                                                     $.Dialog({
+                                                        shadow: true,
+                                                        overlay: true,
+                                                        flat: true,
+                                                        icon: '<span class="icon-cycle"></span>',
+                                                        title: 'Cliente',
+                                                        width: 500,
+                                                        padding: 10,
+                                                        onShow: function(){                        
+                                                                $('.window-overlay').click(function(){
+                                                                       location.reload();
+                                                                 });
+                                                                $('div.caption').find('button.btn-close').click(function(){
+                                                                    location.reload();
+                                                                });                                
+                                                        },
+                                                        content: 'Cliente Atualizado com Sucesso!! xD'
+                                                    });
+
+
+                                                }, 
+                                                "json"		
+                                           );	
+
+                                              e.preventDefault();
+                                            return false;
+                                        });//final Atualiza Cliente
+                                        
                                     }, 
                                     "json"		
                                 );	
@@ -149,68 +221,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                 e.preventDefault();
                 });//Final Edita Cliente
             
-            //Atualiza Cliente
-            $("#form").submit(function(){
-                
-                //alert('alohaaa');
-                var Cliente = new Object();
-                
-                //AQUI ESTA DANDO UMA TRETA PORQUE ESTA PEGANDO O PRIMEIRO A.EDIT E NAO O A.EDIT CLICADO.. VERIFICAR SAPORRA
-                var txt = $('a.edit').attr('rel');
-                
-                
-                 Cliente.id =                   txt;
-                 Cliente.nome_cliente =         $(this).find('input[name="nome_cliente"]').val();
-                 Cliente.cnpj =                 $(this).find('input[name="cnpj"]').val();
-                 Cliente.razao_social =         $(this).find('input[name="razao_social"]').val();
-                 Cliente.nome_fantasia =        $(this).find('input[name="nome_fantasia"]').val();
-                 Cliente.nome_repr_legal =      $(this).find('input[name="nome_repr_legal"]').val();
-                 Cliente.nome_cont_financeiro = $(this).find('input[name="nome_cont_financeiro"]').val();
-                 Cliente.tel_cont_financeiro =  $(this).find('input[name="tel_cont_financeiro"]').val();
-                 Cliente.email_boleto =         $(this).find('input[name="email_boleto"]').val();     
-
-                var clienteJson = JSON.stringify(Cliente);
-                
-               // alert(clienteJson);
-                
-               // return false;
-                $.post('controle/requests.php',
-                    {
-                            action: 'atualizaCliente',			
-                            clien: clienteJson
-                    },
-                    function(data, textStatus) {
-                        
-                       
-                        $("#form").trigger('close');
-                        
-                         $.Dialog({
-                            shadow: true,
-                            overlay: true,
-                            flat: true,
-                            icon: '<span class="icon-cycle"></span>',
-                            title: 'Cliente',
-                            width: 500,
-                            padding: 10,
-                            onShow: function(){                        
-                                    $('.window-overlay').click(function(){
-                                           location.reload();
-                                     });
-                                    $('div.caption').find('button.btn-close').click(function(){
-                                        location.reload();
-                                    });                                
-                            },
-                            content: 'Cliente Atualizado com Sucesso!! xD'
-                        });
-                        
-                        
-                    }, 
-                    "json"		
-               );	
-                
-                //  location.reload();
-                return false;
-            });//final Atualiza Cliente
+         
             
             //Remove Cliente
             $("a.excluir").click(function(){
@@ -396,11 +407,11 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
 </div><!--final container-->
 
 <!--FORMULARIO DE ATUALIZAÇÂO-->
-<div id="form" class="span9">
+<div id="formAtt" class="span9">
                 <div class="example">
                     	<section id="content">
                     		
-                                <form method="POST" action="valida.php">
+                                <form id="form" method="POST" action="">
                                     <legend>Você está editando um cliente</legend>    
 
                                     <label>Cliente</label>
@@ -410,7 +421,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                     </div>
                                     <label>CNPJ</label>
                                     <div class="input-control number">
-                                        <input type="text" value="" placeholder="CNPJ" name="cnpj"/>
+                                        <input type="text" value="" placeholder="CNPJ" data-mask="00.000.000/0000-00" name="cnpj"/>
                                        <button class="btn-clear"></button>
                                     </div>
                                           <label>Razão Social</label>
@@ -425,9 +436,15 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                     </div>
                                        <label>Responsavel</label>
                                     <div class="input-control select">
-                                        <select>
-                                            <option>Herpino</option>
-                                            <option>Derpino</option>
+                                        <select name="id_resp_cliente">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_funcionario']; ?>"><?php echo $tes['nome']; ?></option>
+
+                                          <?php } ?>
                                         </select>
                                     </div>
                                      <label>Representante Legal</label>

@@ -24,10 +24,10 @@ class Cliente {
         public function updateCliente($cliente){		
             
           
-		$sth = $this->dbh->prepare("UPDATE `cliente` SET `nome_cliente`= ?,`cnpj`=?,`razao_social`= ?,`nome_fantasia`=?,"
+		$sth = $this->dbh->prepare("UPDATE `cliente` SET `nome_cliente`= ?,`cnpj`=?,`razao_social`= ?,`nome_fantasia`=?, `id_resp_cliente` = ?,"
                                            . "`nome_repr_legal`=?,`nome_cont_financeiro`=?,"
                                            . "`tel_cont_financeiro`=?,`email_boleto`=? WHERE id_cliente = ?");
-		$sth->execute(array($cliente->nome_cliente, $cliente->cnpj, $cliente->razao_social, $cliente->nome_fantasia,
+		$sth->execute(array($cliente->nome_cliente, $cliente->cnpj, $cliente->razao_social, $cliente->nome_fantasia, $cliente->id_resp_cliente ,
                                     $cliente->nome_repr_legal, $cliente->nome_cont_financeiro, $cliente->tel_cont_financeiro,$cliente->email_boleto, $cliente->id));				
 		return json_encode(1);
 	}
