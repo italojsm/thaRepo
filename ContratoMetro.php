@@ -11,7 +11,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
 <head>
     
 <meta charset="utf-8">
-<title>Cliente</title>
+<title>Contrato</title>
 
 
     <link href="metro/css/metro-bootstrap.css" rel="stylesheet">
@@ -21,6 +21,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
     <!--<link href="../metro/css/myStyle.css" rel="stylesheet">-->
     <link href="metro/js/prettify/prettify.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery.treegrid.css">
+    <link rel="stylesheet" type="text/css" href="css/datepickr.css" /> 
    <!-- <link href="css/bootstrap3.css" rel="stylesheet">-->
 
     <!-- Load JavaScript Libraries -->
@@ -30,6 +31,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
     <script src="metro/js/prettify/prettify.js"></script>
     <script src="metro/js/metro.min.js"></script>
     <script src="js/jquery.lightbox_me.js"></script>
+    
 
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="metro/js/load-metro.js"></script>
@@ -39,24 +41,32 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
     <script src="metro/js/github.info.js"></script>
     
     
-    <script>
+    <script>                jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+                                                $(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+};
+    
         
         $(document).ready(function(){
-	
+            
 		$('#formAtt').hide();
                 $('#formInsert').hide();
                 
                 //INSERIR CLIENTE
                 $("#inserir").click(function(){
-                    
+
                     $('#formInsert').lightbox_me({                            
                             closeClick: false,
                             onLoad: function(){
-                          
+
                                 $('#formInsert').submit(function(e){
                                      var Cliente = new Object();
              
-
+/*
                                      Cliente.nome_cliente =         $(this).find('input[name="nome_cliente"]').val();
                                      Cliente.cnpj =                 $(this).find('input[name="cnpj"]').val();
                                      Cliente.razao_social =         $(this).find('input[name="razao_social"]').val();
@@ -105,7 +115,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                           }, 
                                           "json"		
                                       );
-                                    
+                                    */
                                     e.preventDefault();
                                 });
                           	
@@ -125,7 +135,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                         $("#formAtt").lightbox_me({                            
                             closeClick: false,
                             onLoad: function(){
-                                
+                 /*               
                                 //alert(txt);
                                 $.post('controle/requests.php',
                                     {
@@ -215,7 +225,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                         
                                     }, 
                                     "json"		
-                                );	
+                                );	*/
                             }
                         });				
                 e.preventDefault();
@@ -227,14 +237,14 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
             $("a.excluir").click(function(){
                 
                 
-                if(confirm("Deseja realmente excluir este cliente?")){
+                if(confirm("Deseja realmente excluir este contrato?")){
                    
                
                 
                 var idCli = $(this).attr('rel');
                 
                 //alert(idCli);
-                
+    /*            
                    $.post('controle/requests.php',
                     {
                             action: 'deletaCliente',			
@@ -265,7 +275,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                         
                     }, 
                     "json"		
-                  );
+                  );*/
                 }//final if deseja remover cliente
             });//final Remove Cliente
 
@@ -282,7 +292,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
    
    $con = Conexao::getInstance();
    
-   $stmt = $con->prepare("SELECT * FROM cliente");
+   $stmt = $con->prepare("SELECT * FROM contrato");
    $stmt->execute();
    
    
@@ -383,7 +393,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
             
             <button id="inserir" class="bg-green fg-white">
                <i class="icon-user-2 on-left-more"></i>
-               Cadastrar Cliente
+               Cadastrar Contrato
              </button>
             <table class="table bordered hovered espaco">
   <tbody>
@@ -398,9 +408,9 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
  
  
   <tr>
-    <td> <?php echo $row['nome_cliente'] ?></td>    
-    <td> <a class="edit" onclick="return false" name="nome" href="Cliente.php" rel="<?php echo $row['id_cliente']; ?>">Editar</a> </td>
-    <td> <a class="excluir" onclick="return false"  href="Cliente.php" rel="<?php echo $row['id_cliente']; ?>"> Excluir </a> </td>
+    <td> <?php echo $row['nome_contrato'] ?></td>    
+    <td> <a class="edit" onclick="return false" name="nome" href="Cliente.php" rel="<?php echo $row['id_cotnrato']; ?>">Editar</a> </td>
+    <td> <a class="excluir" onclick="return false"  href="Cliente.php" rel="<?php echo $row['id_cotnrato']; ?>"> Excluir </a> </td>
   </tr>
  
  <?php	} } ?>
@@ -417,31 +427,21 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                     	<section id="content">
                     		
                                 <form id="form" method="POST" action="">
-                                    <legend>Você está editando um cliente</legend>    
-
-                                    <label>Cliente</label>
+                                    <legend>Você está editando um contrato</legend>    
+                                    
+                                    <label>Contrato</label>
                                     <div class="input-control text">
-                                        <input type="text" value="" placeholder="Nome do cleinte" name="nome_cliente"/>
+                                        <input type="text" value="" placeholder="Nome do contrato" name="nome_contrato"/>
                                         <button class="btn-clear"></button>
                                     </div>
-                                    <label>CNPJ</label>
+                                    <label>Descrição</label>
                                     <div class="input-control number">
-                                        <input type="text" value="" placeholder="CNPJ" data-mask="00.000.000/0000-00" name="cnpj"/>
+                                        <input type="text" value="" placeholder="Descriçao do contrato" name="desc_contrato"/>
                                        <button class="btn-clear"></button>
                                     </div>
-                                          <label>Razão Social</label>
-                                    <div class="input-control text">
-                                        <input type="text" value="" placeholder="Razão Social" name="razao_social"/>
-                                        <button class="btn-clear"></button>
-                                    </div>
-                                    <label>Nome Fantasia</label>
-                                    <div class="input-control text">
-                                        <input type="text" value="" placeholder="Nome Fantasia" name="nome_fantasia"/>
-                                        <button class="btn-clear"></button>
-                                    </div>
-                                       <label>Responsavel</label>
+                                          <label>Responsavel Contrato</label>
                                     <div class="input-control select">
-                                        <select name="id_resp_cliente">
+                                        <select name="id_resp_vigencia">
                                            <?php
                                                 $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
                                                 $stmt->execute();
@@ -452,95 +452,28 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                           <?php } ?>
                                         </select>
                                     </div>
-                                     <label>Representante Legal</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Representante Legal" name="nome_repr_legal"/>
-                                        <button class="btn-clear"></button>
+                                    <label>Inicio Vigencia</label>
+                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy"  data-effect="slide" data-week-start="1" >
+                                        <input type="text" placeholder="Data de fim da vigencia" name="dt_inicio_vigencia"/>
+                                    <button class="btn-date"></button>
+                                </div>
+                                      <label>Final Vigencia</label>
+                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy" data-effect="slide" data-week-start="1" >
+                                        <input type="text" value="" placeholder="Data de fim da vigencia" name="dt_fim_vigencia"/>
+                                        <button class="btn-date"></button>
                                     </div>
-                                           <label>Controle Financeiro</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Controle Financeiro" name="nome_cont_financeiro"/>
-                                       <button class="btn-clear"></button>
-                                    </div>
-                                     <label>Tel Controle Financeiro</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Representante Legal" data-mask="0000-0000"  class="telefone" name="tel_cont_financeiro"/>
-                                       <button class="btn-clear"></button>
-                                    </div> 
-                                     <label>Email</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Email" name="email_boleto"/>
-                                       <button class="btn-clear"></button>
-                                    </div>
-
-                                    <input type="submit" value="Atualizar" id="atualizar"/>
-                                    <input type="reset" value="Cancelar" class="close"/>
-                    	       </form><!-- form -->
-                    	</section><!-- content -->
-                </div><!-- container -->
-          
-            </div><!--span9--><!--FORMULARIO DE ATUALIZAÇÂO-->
-            
-            <!--FORMULARIO DE INSERÇÂO-->
-            <div id="formInsert" class="span9">
-                <div class="example">
-                    	<section id="content">
-                    		
-                                <form method="POST" action="valida.php">
-                                    <legend>Você está inserindo um cliente</legend>    
-
-                                    <label>Cliente</label>
-                                    <div class="input-control text">
-                                        <input type="text" value="" placeholder="Nome do cleinte" name="nome_cliente"/>
-                                        <button class="btn-clear"></button>
-                                    </div>
-                                    <label>CNPJ</label>
-                                    <div class="input-control number">
-                                        <input type="text" value="" placeholder="CNPJ" data-mask="00.000.000/0000-00" name="cnpj"/>
-                                       <button class="btn-clear"></button>
-                                    </div>
-                                          <label>Razão Social</label>
-                                    <div class="input-control text">
-                                        <input type="text" value="" placeholder="Razão Social" name="razao_social"/>
-                                        <button class="btn-clear"></button>
-                                    </div>
-                                    <label>Nome Fantasia</label>
-                                    <div class="input-control text">
-                                        <input type="text" value="" placeholder="Nome Fantasia" name="nome_fantasia"/>
-                                        <button class="btn-clear"></button>
-                                    </div>
-                                       <label>Responsavel</label>
+                                       <label>Cliente</label>
                                     <div class="input-control select">
-                                        <select name="id_resp_cliente">
+                                        <select name="id_cliente">
                                            <?php
-                                                $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
+                                                $stmt = $con->prepare("SELECT id_cliente, nome_cliente FROM cliente;");
                                                 $stmt->execute();
                                                 while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
                                            ?>
-                                                         <option value="<?php echo $tes['id_funcionario']; ?>"><?php echo $tes['nome']; ?></option>
+                                                         <option value="<?php echo $tes['id_cliente']; ?>"><?php echo $tes['nome_cliente']; ?></option>
 
                                           <?php } ?>
                                         </select>
-                                    </div>
-                                     <label>Representante Legal</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Representante Legal" name="nome_repr_legal"/>
-                                        <button class="btn-clear"></button>
-                                    </div>
-                                           <label>Controle Financeiro</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Controle Financeiro" name="nome_cont_financeiro"/>
-                                       <button class="btn-clear"></button>
-                                    </div>
-                                     <label>Tel Controle Financeiro</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Representante Legal" data-mask="0000-0000"  class="telefone" name="tel_cont_financeiro"/>
-                                       <button class="btn-clear"></button>
-                                    </div> 
-                                     <label>Email</label>
-                                    <div class="input-control password">
-                                        <input type="text" value="" placeholder="Email" name="email_boleto"/>
-                                       <button class="btn-clear"></button>
                                     </div>
 
                                     <input type="submit" value="Inserir"/>
@@ -549,19 +482,77 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                     	</section><!-- content -->
                 </div><!-- container -->
           
+             
+            </div><!--span9--><!--FORMULARIO DE ATUALIZAÇÂO-->
+            
+            <!--FORMULARIO DE INSERÇÂO-->
+            <div id="formInsert" class="span9">
+              
+                 <div class="example">
+                    	<section id="content">
+                    		
+                                <form method="POST" action="valida.php">
+                                    <legend>Você está inserindo um contrato</legend>    
+
+                                    <label>Contrato</label>
+                                    <div class="input-control text">
+                                        <input type="text" value="" placeholder="Nome do contrato" name="nome_contrato"/>
+                                        <button class="btn-clear"></button>
+                                    </div>
+                                    <label>Descrição</label>
+                                    <div class="input-control number">
+                                        <input type="text" value="" placeholder="Descriçao do contrato" name="desc_contrato"/>
+                                       <button class="btn-clear"></button>
+                                    </div>
+                                          <label>Responsavel Contrato</label>
+                                    <div class="input-control select">
+                                        <select name="id_resp_vigencia">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_funcionario']; ?>"><?php echo $tes['nome']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label>Inicio Vigencia</label>
+                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy"  data-effect="slide" data-week-start="1" >
+                                        <input type="text" placeholder="Data de fim da vigencia" name="dt_inicio_vigencia"/>
+                                    <button class="btn-date"></button>
+                                </div>
+                                      <label>Final Vigencia</label>
+                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy" data-effect="slide" data-week-start="1" >
+                                        <input type="text" value="" placeholder="Data de fim da vigencia" name="dt_fim_vigencia"/>
+                                        <button class="btn-date"></button>
+                                    </div>
+                                       <label>Cliente</label>
+                                    <div class="input-control select">
+                                        <select name="id_cliente">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_cliente, nome_cliente FROM cliente;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_cliente']; ?>"><?php echo $tes['nome_cliente']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>
+
+                                    <input type="submit" value="Inserir"/>
+                                    <input type="reset" value="Cancelar" class="close"/>
+                    	       </form><!-- form -->
+                    	</section><!-- content -->
+                </div><!-- container -->
+          
+                
             </div><!--span9--><!--FORMULARIO DE INSERÇÂO-->
             
-                    
-            
+                      <!--FORMULARIO DE INSERÇÂO-->
+
             <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
-		<script type="text/javascript">			
-                       $(function(){
-                         
-                           // $('.telefone').mask('0000-0000');
-                            
-                        });
-                        
-		</script>
-</body>
+
 </html>

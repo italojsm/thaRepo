@@ -24,7 +24,7 @@
     <!--<link href="../metro/css/myStyle.css" rel="stylesheet">-->
     <link href="metro/js/prettify/prettify.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jquery.treegrid.css">
-  <!-- <link rel="stylesheet" type="text/css" href="css/datepickr.css" /> -->
+   <link rel="stylesheet" type="text/css" href="css/datepickr.css" /> 
    <!-- <link href="css/bootstrap3.css" rel="stylesheet">-->
 
     <!-- Load JavaScript Libraries -->
@@ -35,7 +35,7 @@
     <script src="metro/js/metro.min.js"></script>    
     <!--<script src="metro/js/metro/metro-calendar.js"></script>-->
     <!--<script src="metro/js/metro/metro-datepicker.js"></script>-->
-    <!--<script type="text/javascript" src="js/jquery.treegrid.js"></script>-->
+    <script type="text/javascript" src="js/jquery.treegrid.js"></script>
 
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="metro/js/load-metro.js"></script>
@@ -44,9 +44,9 @@
     <script src="metro/js/docs.js"></script>
     <script src="metro/js/github.info.js"></script>
     
-   <!-- <script src="js/jquery-1.7.2.min.js"></script> -->
-   <!-- <script src="js/dateFormat.js"></script> -->
-   <!-- <script src="js/jquery.redirect.min.js"></script>-->
+    <script src="js/jquery-1.7.2.min.js"></script> 
+    <script src="js/dateFormat.js"></script>
+    <script src="js/jquery.redirect.min.js"></script>
       
     
     
@@ -204,7 +204,11 @@ jQuery(function($){
         </tbody>
         
         </table>
-     
+             <div class="input-control text" data-role="datepicker" data-week-start="1">
+                                    <input type="text">
+                                    <button class="btn-date"></button>
+                                </div>
+              <div class="span3">
                                 <div class="input-control text" data-role="datepicker" data-date="2013-11-13" data-effect="slide" data-other-days="1">
                                     <input type="text">
                                     <button class="btn-date"></button>
@@ -213,11 +217,7 @@ jQuery(function($){
         
     </form>
 
-                <div class="input-control text" data-role="datepicker" data-week-start="1">
-                                    <input type="text">
-                                    <button class="btn-date"></button>
-                                </div>
-              <div class="span3">
+        
 </div> <!-- container -->
 
 
@@ -238,9 +238,13 @@ jQuery(function($){
 -->
 
 <script src="js/view/despesasView.js"></script>
+<script type="text/javascript" src="js/datepickr.min.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
 		<script type="text/javascript">
+			new datepickr('datepicker', {
+				'dateFormat': 'd/m/Y'
+			});
                         
                        $(function(){
                          
