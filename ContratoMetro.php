@@ -56,7 +56,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
 		$('#formAtt').hide();
                 $('#formInsert').hide();
                 
-                //INSERIR CLIENTE
+                //INSERIR CONTRATO
                 $("#inserir").click(function(){
 
                     $('#formInsert').lightbox_me({                            
@@ -64,29 +64,26 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                             onLoad: function(){
 
                                 $('#formInsert').submit(function(e){
-                                     var Cliente = new Object();
+                                     var Contrato = new Object();
              
-/*
-                                     Cliente.nome_cliente =         $(this).find('input[name="nome_cliente"]').val();
-                                     Cliente.cnpj =                 $(this).find('input[name="cnpj"]').val();
-                                     Cliente.razao_social =         $(this).find('input[name="razao_social"]').val();
-                                     Cliente.nome_fantasia =        $(this).find('input[name="nome_fantasia"]').val();
-                                     Cliente.nome_repr_legal =      $(this).find('input[name="nome_repr_legal"]').val();
-                                     Cliente.id_resp_cliente =      $(this).find('select[name="id_resp_cliente"]').val();
-                                     Cliente.nome_cont_financeiro = $(this).find('input[name="nome_cont_financeiro"]').val();
-                                     Cliente.tel_cont_financeiro =  $(this).find('input[name="tel_cont_financeiro"]').val();
-                                     Cliente.email_boleto =         $(this).find('input[name="email_boleto"]').val();     
+
+                                     Contrato.nome_contrato =         $(this).find('input[name="nome_contrato"]').val();
+                                     Contrato.desc_contrato =                 $(this).find('input[name="desc_contrato"]').val();
+                                     Contrato.id_resp_contrato =         $(this).find('select[name="id_resp_contrato"]').val();
+                                     Contrato.dt_inicio_vigencia =        $(this).find('input[name="dt_inicio_vigencia"]').val();
+                                     Contrato.dt_fim_vigencia =      $(this).find('input[name="dt_fim_vigencia"]').val();
+                                     Contrato.id_cliente =      $(this).find('select[name="id_cliente"]').val();   
                 
                                      
-        
-                                     var clienteJson = JSON.stringify(Cliente);
+                                     
+                                     var contratoJson = JSON.stringify(Contrato);
                                     
-                                    //alert(clienteJso);
+                                   // alert(contratoJson);
                                          //console.log(clienteJson);
-                                      $.post('controle/requests.php',
+                                      $.post('controle/requestsContrato.php',
                                           {
-                                                  action: 'insereCliente',			
-                                                  clie: clienteJson
+                                                  action: 'insereContrato',			
+                                                  cont: contratoJson
                                           },
                                           function(data, textStatus){
                                              // alert(data.nome_cliente);
@@ -98,7 +95,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                 overlay: true,
                                                 flat: true,
                                                 icon: '<span class="icon-download"></span>',
-                                                title: 'Cliente',
+                                                title: 'Contrato',
                                                 width: 500,
                                                 padding: 10,
                                                 onShow: function(){                        
@@ -109,23 +106,23 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                             location.reload();
                                                         });                                
                                                 },
-                                                content: 'Cliente inserido com Sucesso!! xD'
+                                                content: 'Contrato inserido com Sucesso!! xD'
                                             });
                                               
                                           }, 
                                           "json"		
                                       );
-                                    */
+                                    
                                     e.preventDefault();
                                 });
                           	
                             }
                         });
                     
-                });//FINAL INSERIR CLIENTE
+                });//FINAL INSERIR CONTRATO
                 
                 
-                    //Editar Cliente
+                    //Editar Contrrato
 	           $("a.edit").click(function(e){
                        
                        var txt = $(this).attr('rel');
@@ -135,63 +132,61 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                         $("#formAtt").lightbox_me({                            
                             closeClick: false,
                             onLoad: function(){
-                 /*               
+                              
                                 //alert(txt);
-                                $.post('controle/requests.php',
+                                $.post('controle/requestsContrato.php',
                                     {
-                                            action: 'getCliente',			
+                                            action: 'getContrato',			
                                             id: txt
                                     },
                                     function(data, textStatus){           
-                                        $("#form").find('input[name="nome_cliente"]').val(data[0].nome_cliente);
-                                        $("#form").find('input[name="cnpj"]').val(data[0].cnpj);
-                                        $("#form").find('input[name="razao_social"]').val(data[0].razao_social);
-                                        $("#form").find('input[name="nome_fantasia"]').val(data[0].nome_fantasia);
-                                        $("#form").find('input[name="nome_repr_legal"]').val(data[0].nome_repr_legal);
-                                        $("#form").find('select[name="id_resp_cliente"] option').filter(function(){
+                                        $("#form").find('input[name="nome_contrato"]').val(data[0].nome_contrato);
+                                        $("#form").find('input[name="desc_contrato"]').val(data[0].desc_contrato);
+                                        $("#form").find('input[name="dt_inicio_vigencia"]').val(data[0].dt_inicio_vigencia);
+                                        $("#form").find('input[name="dt_fim_vigencia"]').val(data[0].dt_fim_vigencia);
+                                        $("#form").find('select[name="id_resp_contrato"] option').filter(function(){
                                             
                                             //alert(this).text();
                                             //return $(this).text() ==  data[0].id_resp_cliente;
-                                           return $(this).val() ==  data[0].id_resp_cliente;
+                                           // alert($(this).val());
+                                         return $(this).val() ==  data[0].id_resp_contrato;
                                             
-                                        }).prop('selected', true);
-                                        $("#form").find('input[name="nome_cont_financeiro"]').val(data[0].nome_cont_financeiro);
-                                        $("#form").find('input[name="tel_cont_financeiro"]').val(data[0].tel_cont_financeiro);
-                                        $("#form").find('input[name="email_boleto"]').val(data[0].email_boleto);     
-                                        
+                                        }).prop('selected', true);   
+                                         $("#form").find('select[name="id_cliente"] option').filter(function(){
+                                            
+                                            //alert(this).text();
+                                            //return $(this).text() ==  data[0].id_resp_cliente;
+                                           return $(this).val() ==  data[0].id_cliente;
+                                            
+                                        }).prop('selected', true);  
 
                                                                        //Atualiza Cliente
                                         $("#form").submit(function(e){
 
-                                            //alert('alohaaa');
-                                            var Cliente = new Object();
+                                            var Contrato = new Object();
+                                                    //alert(txt);
+                                             Contrato.id = txt;
+                                             Contrato.nome_contrato =         $(this).find('input[name="nome_contrato"]').val();
+                                             Contrato.desc_contrato =                 $(this).find('input[name="desc_contrato"]').val();
+                                             Contrato.id_resp_contrato =         $(this).find('select[name="id_resp_contrato"]').val();
+                                             Contrato.dt_inicio_vigencia =        $(this).find('input[name="dt_inicio_vigencia"]').val();
+                                             Contrato.dt_fim_vigencia =      $(this).find('input[name="dt_fim_vigencia"]').val();
+                                             Contrato.id_cliente =      $(this).find('select[name="id_cliente"]').val();   
 
-                                            //AQUI ESTA DANDO UMA TRETA PORQUE ESTA PEGANDO O PRIMEIRO A.EDIT E NAO O A.EDIT CLICADO.. VERIFICAR SAPORRA
-                                            //var txt = $('a.edit').attr('rel');
-                                            
-                                             Cliente.id =                   txt;
-                                             Cliente.nome_cliente =         $(this).find('input[name="nome_cliente"]').val();
-                                             Cliente.cnpj =                 $(this).find('input[name="cnpj"]').val();
-                                             Cliente.razao_social =         $(this).find('input[name="razao_social"]').val();
-                                             Cliente.nome_fantasia =        $(this).find('input[name="nome_fantasia"]').val();
-                                             Cliente.nome_repr_legal =      $(this).find('input[name="nome_repr_legal"]').val();
-                                             Cliente.id_resp_cliente =      $(this).find('select[name="id_resp_cliente"]').val();
-                                             Cliente.nome_cont_financeiro = $(this).find('input[name="nome_cont_financeiro"]').val();
-                                             Cliente.tel_cont_financeiro =  $(this).find('input[name="tel_cont_financeiro"]').val();
-                                             Cliente.email_boleto =         $(this).find('input[name="email_boleto"]').val();     
 
-                                            var clienteJson = JSON.stringify(Cliente);
+
+                                             var contratoJson = JSON.stringify(Contrato);
 
                                            // alert(clienteJson);
 
                                            // return false;
-                                            $.post('controle/requests.php',
+                                            $.post('controle/requestsContrato.php',
                                                 {
-                                                        action: 'atualizaCliente',			
-                                                        clien: clienteJson
+                                                        action: 'atualizaContrato',			
+                                                        cont: contratoJson
                                                 },
                                                 function(data, textStatus) {
-
+//alert('traaa');
 
                                                     $("#form").trigger('close');
 
@@ -211,7 +206,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                                     location.reload();
                                                                 });                                
                                                         },
-                                                        content: 'Cliente Atualizado com Sucesso!! xD'
+                                                        content: 'Contrato Atualizado com Sucesso!! xD'
                                                     });
 
 
@@ -225,7 +220,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                         
                                     }, 
                                     "json"		
-                                );	*/
+                                );	
                             }
                         });				
                 e.preventDefault();
@@ -233,7 +228,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
             
          
             
-            //Remove Cliente
+            //Remove Contrato
             $("a.excluir").click(function(){
                 
                 
@@ -241,14 +236,14 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                    
                
                 
-                var idCli = $(this).attr('rel');
+                var idCont = $(this).attr('rel');
                 
                 //alert(idCli);
-    /*            
-                   $.post('controle/requests.php',
+                
+                   $.post('controle/requestsContrato.php',
                     {
-                            action: 'deletaCliente',			
-                            id: idCli
+                            action: 'deletaContrato',			
+                            id: idCont
                     },
                     function(data, textStatus) {
                         $("#form").trigger('close');
@@ -270,14 +265,14 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                         location.reload();
                                     });                                
                             },
-                            content: 'Cliente deletato com Sucesso!! xD'
+                            content: 'Contrato deletato com Sucesso!! xD'
                         });
                         
                     }, 
                     "json"		
-                  );*/
-                }//final if deseja remover cliente
-            });//final Remove Cliente
+                  );
+                }//final if deseja remover Contrato
+            });//final Remove Contrato
 
             
 	});//final ready()
@@ -409,8 +404,8 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
  
   <tr>
     <td> <?php echo $row['nome_contrato'] ?></td>    
-    <td> <a class="edit" onclick="return false" name="nome" href="Cliente.php" rel="<?php echo $row['id_cotnrato']; ?>">Editar</a> </td>
-    <td> <a class="excluir" onclick="return false"  href="Cliente.php" rel="<?php echo $row['id_cotnrato']; ?>"> Excluir </a> </td>
+    <td> <a class="edit" onclick="return false" name="nome" href="Cliente.php" rel="<?php echo $row['id_contrato']; ?>">Editar</a> </td>
+    <td> <a class="excluir" onclick="return false"  href="Cliente.php" rel="<?php echo $row['id_contrato']; ?>"> Excluir </a> </td>
   </tr>
  
  <?php	} } ?>
@@ -441,7 +436,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                     </div>
                                           <label>Responsavel Contrato</label>
                                     <div class="input-control select">
-                                        <select name="id_resp_vigencia">
+                                        <select name="id_resp_contrato">
                                            <?php
                                                 $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
                                                 $stmt->execute();
@@ -476,7 +471,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                         </select>
                                     </div>
 
-                                    <input type="submit" value="Inserir"/>
+                                    <input type="submit" value="Atualizar"/>
                                     <input type="reset" value="Cancelar" class="close"/>
                     	       </form><!-- form -->
                     	</section><!-- content -->
@@ -506,7 +501,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                     </div>
                                           <label>Responsavel Contrato</label>
                                     <div class="input-control select">
-                                        <select name="id_resp_vigencia">
+                                        <select name="id_resp_contrato">
                                            <?php
                                                 $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
                                                 $stmt->execute();
