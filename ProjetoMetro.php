@@ -11,7 +11,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
 <head>
     
 <meta charset="utf-8">
-<title>Contrato</title>
+<title>Projeto</title>
 
 
     <link href="metro/css/metro-bootstrap.css" rel="stylesheet">
@@ -41,14 +41,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
     <script src="metro/js/github.info.js"></script>
     
     
-    <script>                jQuery.fn.center = function () {
-    this.css("position","absolute");
-    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
-                                                $(window).scrollTop()) + "px");
-    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
-                                                $(window).scrollLeft()) + "px");
-    return this;
-};
+    <script>    
     
         
         $(document).ready(function(){
@@ -64,26 +57,30 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                             onLoad: function(){
 
                                 $('#formInsert').submit(function(e){
-                                     var Contrato = new Object();
+                                     var Projeto = new Object();
              
 
-                                     Contrato.nome_contrato =         $(this).find('input[name="nome_contrato"]').val();
-                                     Contrato.desc_contrato =                 $(this).find('input[name="desc_contrato"]').val();
-                                     Contrato.id_resp_contrato =         $(this).find('select[name="id_resp_contrato"]').val();
-                                     Contrato.dt_inicio_vigencia =        $(this).find('input[name="dt_inicio_vigencia"]').val();
-                                     Contrato.dt_fim_vigencia =      $(this).find('input[name="dt_fim_vigencia"]').val();
-                                     Contrato.id_cliente =      $(this).find('select[name="id_cliente"]').val();   
+                                     Projeto.nome_projeto =         $(this).find('input[name="nome_projeto"]').val();
+                                     Projeto.desc_projeto =         $(this).find('input[name="desc_projeto"]').val();
+                                     Projeto.id_contrato =          $(this).find('select[name="id_contrato"]').val();   
+                                     Projeto.id_base_operacoes =    $(this).find('select[name="id_base_operacoes"]').val();   
+                                     Projeto.id_base_comercial =    $(this).find('select[name="id_base_comercial"]').val();   
+                                     Projeto.id_entrega =           $(this).find('select[name="id_entrega"]').val();   
+                                     Projeto.id_tipo_inteligencia = $(this).find('select[name="id_tipo_inteligencia"]').val();   
+                                     Projeto.id_etapa =             $(this).find('select[name="id_etapa"]').val();   
                 
                                      
                                      
-                                     var contratoJson = JSON.stringify(Contrato);
+                                     var projetoJson = JSON.stringify(Projeto);
                                     
-                                   // alert(contratoJson);
+                                    // alert(projetoJson);
+                                     
+                                    // return false;
                                          //console.log(clienteJson);
-                                      $.post('controle/requestsContrato.php',
+                                      $.post('controle/requestsProjeto.php',
                                           {
-                                                  action: 'insereContrato',			
-                                                  cont: contratoJson
+                                                  action: 'insereProjeto',			
+                                                  proj: projetoJson
                                           },
                                           function(data, textStatus){
                                              // alert(data.nome_cliente);
@@ -95,7 +92,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                 overlay: true,
                                                 flat: true,
                                                 icon: '<span class="icon-download"></span>',
-                                                title: 'Contrato',
+                                                title: 'Projeto',
                                                 width: 500,
                                                 padding: 10,
                                                 onShow: function(){                        
@@ -106,7 +103,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                             location.reload();
                                                         });                                
                                                 },
-                                                content: 'Contrato inserido com Sucesso!! xD'
+                                                content: 'Projeto inserido com Sucesso!! xD'
                                             });
                                               
                                           }, 
@@ -119,7 +116,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                             }
                         });
                     
-                });//FINAL INSERIR CONTRATO
+                });//FIIM INSERIR PROJETO
                 
                 
                     //Editar Contrrato
@@ -134,56 +131,79 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                             onLoad: function(){
                               
                                 //alert(txt);
-                                $.post('controle/requestsContrato.php',
+                                $.post('controle/requestsProjeto.php',
                                     {
-                                            action: 'getContrato',			
+                                            action: 'getProjeto',			
                                             id: txt
                                     },
-                                    function(data, textStatus){           
-                                        $("#form").find('input[name="nome_contrato"]').val(data[0].nome_contrato);
-                                        $("#form").find('input[name="desc_contrato"]').val(data[0].desc_contrato);
-                                        $("#form").find('input[name="dt_inicio_vigencia"]').val(data[0].dt_inicio_vigencia);
-                                        $("#form").find('input[name="dt_fim_vigencia"]').val(data[0].dt_fim_vigencia);
-                                        $("#form").find('select[name="id_resp_contrato"] option').filter(function(){
+                                    function(data, textStatus){    
+                                        
+                                    $("#form").find('input[name="nome_projeto"]').val(data[0].nome_projeto);
+                                    $("#form").find('input[name="desc_projeto"]').val(data[0].desc_projeto);
+                                    $("#form").find('select[name="id_contrato"] option').filter(function(){
                                             
-                                            //alert(this).text();
-                                            //return $(this).text() ==  data[0].id_resp_cliente;
-                                           // alert($(this).val());
-                                         return $(this).val() ==  data[0].id_resp_contrato;
+                                         return $(this).val() ==  data[0].id_contrato;
                                             
-                                        }).prop('selected', true);   
-                                         $("#form").find('select[name="id_cliente"] option').filter(function(){
+                                        }).prop('selected', true);                         
                                             
-                                            //alert(this).text();
-                                            //return $(this).text() ==  data[0].id_resp_cliente;
-                                           return $(this).val() ==  data[0].id_cliente;
+                                    $("#form").find('select[name="id_base_operacoes"]').filter(function(){
                                             
-                                        }).prop('selected', true);  
+                                         return $(this).val() ==  data[0].id_base_operacoes;
+                                            
+                                        }).prop('selected', true);                        
+                                    
+                                    $("#form").find('select[name="id_base_comercial"]').filter(function(){
+                                            
+                                         return $(this).val() ==  data[0].id_base_comercial;
+                                            
+                                        }).prop('selected', true);                        
+                                                                        
+                                    
+                                    $("#form").find('select[name="id_entrega"]').filter(function(){
+                                            
+                                         return $(this).val() ==  data[0].id_entrega;
+                                            
+                                        }).prop('selected', true);                 
+                                        
+                                    $("#form").find('select[name="id_tipo_inteligencia"]').filter(function(){
+                                            
+                                         return $(this).val() ==  data[0].id_tipo_inteligencia;
+                                            
+                                        }).prop('selected', true);              
+                                        
+                                        
+                                    $("#form").find('select[name="id_etapa"]').filter(function(){
+                                            
+                                         return $(this).val() ==  data[0].id_etapa;
+                                            
+                                        }).prop('selected', true);              
 
-                                                                       //Atualiza Cliente
+                                        //Atualiza Cliente
                                         $("#form").submit(function(e){
 
-                                            var Contrato = new Object();
+                                            var Projeto = new Object();
                                                     //alert(txt);
-                                             Contrato.id = txt;
-                                             Contrato.nome_contrato =         $(this).find('input[name="nome_contrato"]').val();
-                                             Contrato.desc_contrato =                 $(this).find('input[name="desc_contrato"]').val();
-                                             Contrato.id_resp_contrato =         $(this).find('select[name="id_resp_contrato"]').val();
-                                             Contrato.dt_inicio_vigencia =        $(this).find('input[name="dt_inicio_vigencia"]').val();
-                                             Contrato.dt_fim_vigencia =      $(this).find('input[name="dt_fim_vigencia"]').val();
-                                             Contrato.id_cliente =      $(this).find('select[name="id_cliente"]').val();   
+                                             Projeto.id = txt;
+                                             Projeto.nome_projeto =         $(this).find('input[name="nome_projeto"]').val();
+                                             Projeto.desc_projeto =         $(this).find('input[name="desc_projeto"]').val();
+                                             Projeto.id_contrato =          $(this).find('select[name="id_contrato"]').val();   
+                                             Projeto.id_base_operacoes =    $(this).find('select[name="id_base_operacoes"]').val();   
+                                             Projeto.id_base_comercial =    $(this).find('select[name="id_base_comercial"]').val();   
+                                             Projeto.id_entrega =           $(this).find('select[name="id_entrega"]').val();   
+                                             Projeto.id_tipo_inteligencia = $(this).find('select[name="id_tipo_inteligencia"]').val();   
+                                             Projeto.id_etapa =             $(this).find('select[name="id_etapa"]').val();   
 
 
 
-                                             var contratoJson = JSON.stringify(Contrato);
+                                             var projetoJson = JSON.stringify(Projeto);
 
-                                           // alert(clienteJson);
+                                           // alert(projetoJson);
 
-                                           // return false;
-                                            $.post('controle/requestsContrato.php',
+                                        //  return false;
+                                            $.post('controle/requestsProjeto.php',
                                                 {
-                                                        action: 'atualizaContrato',			
-                                                        cont: contratoJson
+                                                        action: 'atualizaProjeto',			
+                                                        proj: projetoJson
                                                 },
                                                 function(data, textStatus) {
 //alert('traaa');
@@ -195,7 +215,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                         overlay: true,
                                                         flat: true,
                                                         icon: '<span class="icon-cycle"></span>',
-                                                        title: 'Cliente',
+                                                        title: 'Projeto',
                                                         width: 500,
                                                         padding: 10,
                                                         onShow: function(){                        
@@ -206,7 +226,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                                                                     location.reload();
                                                                 });                                
                                                         },
-                                                        content: 'Contrato Atualizado com Sucesso!! xD'
+                                                        content: 'Projeto Atualizado com Sucesso!! xD'
                                                     });
 
 
@@ -287,7 +307,7 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
    
    $con = Conexao::getInstance();
    
-   $stmt = $con->prepare("SELECT * FROM contrato");
+   $stmt = $con->prepare("SELECT * FROM projeto");
    $stmt->execute();
    
    
@@ -388,12 +408,12 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
             
             <button id="inserir" class="bg-green fg-white">
                <i class="icon-user-2 on-left-more"></i>
-               Cadastrar Contrato
+               Cadastrar Projeto
              </button>
             <table class="table bordered hovered espaco">
   <tbody>
   <tr>
-      <th>Contrato</th>
+      <th>Projeto</th>
       <th colspan = "2">Ações</th>
   </tr>
   </tbody>
@@ -403,9 +423,9 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
  
  
   <tr>
-    <td> <?php echo $row['nome_contrato'] ?></td>    
-    <td> <a class="edit" onclick="return false" name="nome" href="Cliente.php" rel="<?php echo $row['id_contrato']; ?>">Editar</a> </td>
-    <td> <a class="excluir" onclick="return false"  href="Cliente.php" rel="<?php echo $row['id_contrato']; ?>"> Excluir </a> </td>
+    <td> <?php echo $row['nome_projeto'] ?></td>    
+    <td> <a class="edit" onclick="return false" name="nome" href="Cliente.php" rel="<?php echo $row['id_projeto']; ?>">Editar</a> </td>
+    <td> <a class="excluir" onclick="return false"  href="Cliente.php" rel="<?php echo $row['id_projeto']; ?>"> Excluir </a> </td>
   </tr>
  
  <?php	} } ?>
@@ -422,54 +442,96 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                     	<section id="content">
                     		
                                 <form id="form" method="POST" action="">
-                                    <legend>Você está editando um contrato</legend>    
-                                    
-                                    <label>Contrato</label>
+                                   <legend>Você está inserindo um projeto</legend>    
+
+                                    <label>Projeto</label>
                                     <div class="input-control text">
-                                        <input type="text" value="" placeholder="Nome do contrato" name="nome_contrato"/>
+                                        <input type="text" value="" placeholder="Nome do projeto" name="nome_projeto"/>
                                         <button class="btn-clear"></button>
                                     </div>
                                     <label>Descrição</label>
-                                    <div class="input-control number">
-                                        <input type="text" value="" placeholder="Descriçao do contrato" name="desc_contrato"/>
+                                    <div class="input-control text">
+                                        <input type="text" value="" placeholder="Descriçao do projeto" name="desc_projeto"/>
                                        <button class="btn-clear"></button>
                                     </div>
-                                          <label>Responsavel Contrato</label>
+                                    <label>Contrato</label>
                                     <div class="input-control select">
-                                        <select name="id_resp_contrato">
+                                        <select name="id_contrato">
                                            <?php
-                                                $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
+                                                $stmt = $con->prepare("SELECT id_contrato, nome_contrato FROM contrato;");
                                                 $stmt->execute();
                                                 while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
                                            ?>
-                                                         <option value="<?php echo $tes['id_funcionario']; ?>"><?php echo $tes['nome']; ?></option>
+                                                         <option value="<?php echo $tes['id_contrato']; ?>"><?php echo $tes['nome_contrato']; ?></option>
 
                                           <?php } ?>
                                         </select>
                                     </div>
-                                    <label>Inicio Vigencia</label>
-                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy"  data-effect="slide" data-week-start="1" >
-                                        <input type="text" placeholder="Data de fim da vigencia" name="dt_inicio_vigencia"/>
-                                    <button class="btn-date"></button>
-                                </div>
-                                      <label>Final Vigencia</label>
-                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy" data-effect="slide" data-week-start="1" >
-                                        <input type="text" value="" placeholder="Data de fim da vigencia" name="dt_fim_vigencia"/>
-                                        <button class="btn-date"></button>
-                                    </div>
-                                       <label>Cliente</label>
+                                    <label>Base Operacional</label>
                                     <div class="input-control select">
-                                        <select name="id_cliente">
+                                        <select name="id_base_operacoes">
                                            <?php
-                                                $stmt = $con->prepare("SELECT id_cliente, nome_cliente FROM cliente;");
+                                                $stmt = $con->prepare("SELECT id_base_operacoes, nome_base_operacoes FROM base_operacoes;");
                                                 $stmt->execute();
                                                 while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
                                            ?>
-                                                         <option value="<?php echo $tes['id_cliente']; ?>"><?php echo $tes['nome_cliente']; ?></option>
+                                                         <option value="<?php echo $tes['id_base_operacoes']; ?>"><?php echo $tes['nome_base_operacoes']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>  
+                                    <label>Base Comercial</label>
+                                    <div class="input-control select">
+                                        <select name="id_base_comercial">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_base_comercial, nome_base_comercial FROM base_comercial;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_base_comercial']; ?>"><?php echo $tes['nome_base_comercial']; ?></option>
 
                                           <?php } ?>
                                         </select>
                                     </div>
+                                    <label>Entrega</label>
+                                    <div class="input-control select">
+                                        <select name="id_entrega">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_entrega, nome_entrega FROM entrega;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_entrega']; ?>"><?php echo $tes['nome_entrega']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label>Tipo Inteligencia</label>
+                                    <div class="input-control select">
+                                        <select name="id_tipo_inteligencia">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_tipo_inteligencia, nome_tipo_inteligencia FROM tipo_inteligencia;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_tipo_inteligencia']; ?>"><?php echo $tes['nome_tipo_inteligencia']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label>Etapa</label>
+                                    <div class="input-control select">
+                                        <select name="id_etapa">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_etapa, nome_etapa FROM etapa;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_etapa']; ?>"><?php echo $tes['nome_etapa']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>         
 
                                     <input type="submit" value="Atualizar"/>
                                     <input type="reset" value="Cancelar" class="close"/>
@@ -480,62 +542,103 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
              
             </div><!--span9--><!--FORMULARIO DE ATUALIZAÇÂO-->
             
-            <!--FORMULARIO DE INSERÇÂO-->
+            <!--FORMULARIO DE INSERÇÃO-->
             <div id="formInsert" class="span9">
               
                  <div class="example">
                     	<section id="content">
                     		
                                 <form method="POST" action="valida.php">
-                                    <legend>Você está inserindo um contrato</legend>    
+                                    <legend>Você está inserindo um projeto</legend>    
 
-                                    <label>Contrato</label>
+                                    <label>Projeto</label>
                                     <div class="input-control text">
-                                        <input type="text" value="" placeholder="Nome do contrato" name="nome_contrato"/>
+                                        <input type="text" value="" placeholder="Nome do projeto" name="nome_projeto"/>
                                         <button class="btn-clear"></button>
                                     </div>
                                     <label>Descrição</label>
-                                    <div class="input-control number">
-                                        <input type="text" value="" placeholder="Descriçao do contrato" name="desc_contrato"/>
+                                    <div class="input-control text">
+                                        <input type="text" value="" placeholder="Descriçao do projeto" name="desc_projeto"/>
                                        <button class="btn-clear"></button>
                                     </div>
-                                          <label>Responsavel Contrato</label>
+                                    <label>Contrato</label>
                                     <div class="input-control select">
-                                        <select name="id_resp_contrato">
+                                        <select name="id_contrato">
                                            <?php
-                                                $stmt = $con->prepare("SELECT id_funcionario, nome FROM funcionario;");
+                                                $stmt = $con->prepare("SELECT id_contrato, nome_contrato FROM contrato;");
                                                 $stmt->execute();
                                                 while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
                                            ?>
-                                                         <option value="<?php echo $tes['id_funcionario']; ?>"><?php echo $tes['nome']; ?></option>
+                                                         <option value="<?php echo $tes['id_contrato']; ?>"><?php echo $tes['nome_contrato']; ?></option>
 
                                           <?php } ?>
                                         </select>
                                     </div>
-                                    <label>Inicio Vigencia</label>
-                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy"  data-effect="slide" data-week-start="1" >
-                                        <input type="text" placeholder="Data de fim da vigencia" name="dt_inicio_vigencia"/>
-                                    <button class="btn-date"></button>
-                                </div>
-                                      <label>Final Vigencia</label>
-                                    <div class="input-control text" data-role="datepicker" data-format="dd/mm/yyyy" data-effect="slide" data-week-start="1" >
-                                        <input type="text" value="" placeholder="Data de fim da vigencia" name="dt_fim_vigencia"/>
-                                        <button class="btn-date"></button>
-                                    </div>
-                                       <label>Cliente</label>
+                                    <label>Base Operacional</label>
                                     <div class="input-control select">
-                                        <select name="id_cliente">
+                                        <select name="id_base_operacoes">
                                            <?php
-                                                $stmt = $con->prepare("SELECT id_cliente, nome_cliente FROM cliente;");
+                                                $stmt = $con->prepare("SELECT id_base_operacoes, nome_base_operacoes FROM base_operacoes;");
                                                 $stmt->execute();
                                                 while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
                                            ?>
-                                                         <option value="<?php echo $tes['id_cliente']; ?>"><?php echo $tes['nome_cliente']; ?></option>
+                                                         <option value="<?php echo $tes['id_base_operacoes']; ?>"><?php echo $tes['nome_base_operacoes']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>  
+                                    <label>Base Comercial</label>
+                                    <div class="input-control select">
+                                        <select name="id_base_comercial">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_base_comercial, nome_base_comercial FROM base_comercial;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_base_comercial']; ?>"><?php echo $tes['nome_base_comercial']; ?></option>
 
                                           <?php } ?>
                                         </select>
                                     </div>
+                                    <label>Entrega</label>
+                                    <div class="input-control select">
+                                        <select name="id_entrega">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_entrega, nome_entrega FROM entrega;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_entrega']; ?>"><?php echo $tes['nome_entrega']; ?></option>
 
+                                          <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label>Tipo Inteligencia</label>
+                                    <div class="input-control select">
+                                        <select name="id_tipo_inteligencia">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_tipo_inteligencia, nome_tipo_inteligencia FROM tipo_inteligencia;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_tipo_inteligencia']; ?>"><?php echo $tes['nome_tipo_inteligencia']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>
+                                    <label>Etapa</label>
+                                    <div class="input-control select">
+                                        <select name="id_etapa">
+                                           <?php
+                                                $stmt = $con->prepare("SELECT id_etapa, nome_etapa FROM etapa;");
+                                                $stmt->execute();
+                                                while($tes = $stmt->fetch(PDO::FETCH_ASSOC)){
+                                           ?>
+                                                         <option value="<?php echo $tes['id_etapa']; ?>"><?php echo $tes['nome_etapa']; ?></option>
+
+                                          <?php } ?>
+                                        </select>
+                                    </div>                                       
                                     <input type="submit" value="Inserir"/>
                                     <input type="reset" value="Cancelar" class="close"/>
                     	       </form><!-- form -->
@@ -543,9 +646,9 @@ include("login/seguranca.php"); //Inclui o arquivo com o sistema de segurança
                 </div><!-- container -->
           
                 
-            </div><!--span9--><!--FORMULARIO DE INSERÇÂO-->
+            </div><!--span9--><!--FIM FORMULARIO DE INSERÇÂO-->
             
-                      <!--FORMULARIO DE INSERÇÂO-->
+                      
 
             <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
